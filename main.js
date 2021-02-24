@@ -30,11 +30,44 @@ const getRandomInt = (min, max) => {
 
 const generateHint = () =>  {
   // your code here
+  let hints = 0;
+  let hints2 = 0;
+
+  let Garray = guess.split('');
+  let solution = solution.split('');
+   Garray.forEach(function(letter, index){
+      if(Garray[index] == solution[index]){
+      hints++
+      Garray[index] = 0
+      solution[index] = 1
+   }
+  })
+Garray.forEach(function(guessLetter, guessIndex){
+   solution.forEach(function(solutionLetter, solutionIndex){
+    if(guessLetter == solutionLetter){
+        hints2++
+        Garray[guessIndex] = 0
+        solution[solutionIndex] = 1
+  }
+  })
+  })
+  return hints + "-" + hints2
 }
 
 const mastermind = (guess) => {
-  solution = 'abcd'; // Comment this out to generate a random solution
-  // your code here
+  solution = 'abcd';
+  if(guess === solution){
+    board = [];
+    return 'Correct'
+  } else if (board.length >= 10) {
+    console.log('LOST');
+    board = [];
+    solution = '';
+    generateSolution()
+  } else {
+    board.push(guess)
+    console.log(generateHint(guess))
+  }
 }
 
 
